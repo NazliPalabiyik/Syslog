@@ -4,13 +4,13 @@
 
 #define MAX_LINE_LENGTH 1024
 
-// Bağlı listedeki her düğümün yapısını tanımlayan Node yapısı
+// BaÄŸlÄ± listedeki her dÃ¼ÄŸÃ¼mÃ¼n yapÄ±sÄ±nÄ± tanÄ±mlayan Node yapÄ±sÄ±
 typedef struct Node {
     char data[MAX_LINE_LENGTH];
     struct Node* next;
 } Node;
 
-// Yeni bir düğüm oluşturma fonksiyonu
+// Yeni bir dÃ¼ÄŸÃ¼m oluÅŸturma fonksiyonu
 Node* create_node(char* data) {
     Node* new_node = (Node*)malloc(sizeof(Node));
     strcpy(new_node->data, data);
@@ -18,7 +18,7 @@ Node* create_node(char* data) {
     return new_node;
 }
 
-// Bağlı listeye düğüm ekleme fonksiyonu
+// BaÄŸlÄ± listeye dÃ¼ÄŸÃ¼m ekleme fonksiyonu
 void append(Node** head, char* data) {
     Node* new_node = create_node(data);
     if (*head == NULL) {
@@ -32,7 +32,7 @@ void append(Node** head, char* data) {
     }
 }
 
-// Bağlı listenin içeriğini ekrana yazdıran fonksiyon
+// BaÄŸlÄ± listenin iÃ§eriÄŸini ekrana yazdÄ±ran fonksiyon
 void display(Node* head) {
     Node* current_node = head;
     while (current_node) {
@@ -41,7 +41,7 @@ void display(Node* head) {
     }
 }
 
-// Syslog dosyasını okuyan ve verileri bağlı listeye ekleyen fonksiyon
+// Syslog dosyasÄ±nÄ± okuyan ve verileri baÄŸlÄ± listeye ekleyen fonksiyon
 Node* read_syslog(char* file_path) {
     FILE* file = fopen(file_path, "r");
     if (file == NULL) {
@@ -52,7 +52,7 @@ Node* read_syslog(char* file_path) {
     Node* head = NULL;
     char line[MAX_LINE_LENGTH];
     
-    // Dosyadaki her satırı okuyup bağlı listeye ekleme
+    // Dosyadaki her satÄ±rÄ± okuyup baÄŸlÄ± listeye ekleme
     while (fgets(line, sizeof(line), file)) {
         append(&head, line);
     }
@@ -62,10 +62,10 @@ Node* read_syslog(char* file_path) {
 }
 
 int main() {
-    char* file_path = "/var/log/syslog"; // Syslog dosyasının yolu
-    Node* syslog_linked_list = read_syslog(file_path); // Syslog verilerini okuma ve bağlı listeye ekleme
+    char* file_path = "/var/log/syslog"; // Syslog dosyasÄ±nÄ±n yolu
+    Node* syslog_linked_list = read_syslog(file_path); // Syslog verilerini okuma ve baÄŸlÄ± listeye ekleme
     if (syslog_linked_list != NULL) {
-        display(syslog_linked_list); // Bağlı listenin içeriğini yazdırma
+        display(syslog_linked_list); // BaÄŸlÄ± listenin iÃ§eriÄŸini yazdÄ±rma
     }
     return 0;
 }
